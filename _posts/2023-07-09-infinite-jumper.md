@@ -1,6 +1,6 @@
 # Infinite Jumper Game for Open Source AI Game Jam
 
-Recently Huggingface organized a game jam called "Open Source AI Game Jam". The goal was to create an game incorporating Open Source AI tools within 48 hours. I decided to take this oppurtunity to refamiliarize with Unity and explore how new Generative AI tools are being integrated within game dev.
+Recently Huggingface organized a game jam called [Open Source AI Game Jam](https://itch.io/jam/open-source-ai-game-jam). The goal was to create an game incorporating Open Source AI tools within 48 hours. I decided to take this oppurtunity to refamiliarize with Unity and explore how new Generative AI tools are being integrated within game dev.
 
 
 ## Game Jam Rules and Theme
