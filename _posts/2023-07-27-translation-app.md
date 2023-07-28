@@ -122,7 +122,7 @@ class LanguageRecognizer {
 
 ```
 Now we add Language Identification functionality by adding a single public function:
-- `recognizeLanguage`: A public function that takes as input the `Map` created from our `performOCR` function during the OCR step, and returns a string indicating the Language detected. 
+- `recognizeLanguage`: A public function that takes as input the `Map` created from our `performOCR` function during the OCR step, and returns a string indicating the language detected. 
 
     The function iterates through all the OCR results and recognizes the language associated with each text line. Then returns the most common language found that is either German or Swedish. If neither of two is found, detected language is undetermined.
 
