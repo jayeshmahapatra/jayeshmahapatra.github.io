@@ -37,7 +37,7 @@ dependencies {
 Then, let's create a class called OCRHelper, which will manage all OCR functionality. We also create an member variable to store an instance
 of TextRecognition Client. This instance will be used to perform text recognition, and we use the default options to create it as we want to recongize only latin characters.
 
-```
+```kotlin
 package com.example.translateocrapp
 
 import com.google.mlkit.vision.text.Text
@@ -59,7 +59,7 @@ class OcrHelper {
 
 Now let's start adding OCR functionality to the class.
 
-```
+```kotlin
 package com.example.translateocrapp
 
 // imports here
