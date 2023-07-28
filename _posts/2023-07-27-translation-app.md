@@ -10,9 +10,10 @@ So as a prerequisite for this tutorial, please go through the [Get Started with 
 that will walk you through the process of creating a simple camera app. Since we only need image capture functionality, you can stop after Step 5 of the tutorial and skip
 the rest that deals with video capture and image analysis.
 
-Once you have completed the Camera X tutorial upto Step 5, you are ready the start our Translation App tutorial.
+Once you have completed the Camera X tutorial upto Step 5, you are ready the start this Translation App tutorial.
 
-## Step 1: Adding and Extra Activity to the Base App
+
+## Step 1: Adding an Extra Activity to the Base App
 Does the following:
 - Modify the main activity to capture and save picture in the app's directory
 - Create a New Activity called Preview Activity that the app transitions to after the picture is captured.
@@ -20,9 +21,87 @@ The new view will display the captured image for now.
 - Add logic in main activity to transition to preview activity once the picture is clicked and saved.
 
 ## Step 2: Doing OCR
-Create a separate class called OCR manager. An instance of this class will initialize ML-kit ocr client.
-The class will have a public function to do ocr on a bitmap and return a map of Rect to Text.Line, where rect is the cooridnates of detected text, and text.line objects contain 
-lines of text detected.
+Now that we have a an app where we can capture images and preview the captured image, let's get started with the translation.
+We first start by implementing OCR functionality using ML-Kit to read any text present in the captured image. 
+
+Before we start coding, it's important to add relevant ML-Kit ocr dependencies to our app's build.gradle
+
+```
+dependencies {
+    
+    // ML-Kit to recognize Latin script
+    implementation 'com.google.mlkit:text-recognition:16.0.0'
+}
+```
+
+Then, let's create a class called OCRHelper, which will manage all OCR functionality. We also create an member variable to store an instance
+of TextRecognition Client. This instance will be used to perform text recognition, and we use the default options to create it as we want to recongize only latin characters.
+
+```
+package com.example.translateocrapp
+
+import com.google.mlkit.vision.text.Text
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.TextRecognizer
+import com.google.mlkit.vision.text.TextRecognizerOptionsInterface
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+
+class OcrHelper {
+    private val textRecognizer: TextRecognizer
+    private val textRecognizerOptions: TextRecognizerOptionsInterface
+
+    init {
+        textRecognizerOptions = TextRecognizerOptions.Builder().build()
+        textRecognizer = TextRecognition.getClient(textRecognizerOptions)
+    }
+}
+```
+
+Now let's start adding OCR functionality to the class.
+
+```
+package com.example.translateocrapp
+
+// imports here
+
+
+class OcrHelper {
+
+    private val textRecognizer: TextRecognizer
+    private val textRecognizerOptions: TextRecognizerOptionsInterface
+
+    init {
+        textRecognizerOptions = TextRecognizerOptions.Builder().build()
+        textRecognizer = TextRecognition.getClient(textRecognizerOptions)
+    }
+
+
+    fun performOcr(bitmap: Bitmap): Map<Rect, Text.Line> {
+        val image = InputImage.fromBitmap(bitmap, 0)
+        val task: Task<Text> = textRecognizer.process(image)
+        val result = Tasks.await(task)
+        return extractTextBlocks(result)
+    }
+
+    private fun extractTextBlocks(text: Text): Map<Rect, Text.Line> {
+        val lineMap = mutableMapOf<Rect, Text.Line>()
+
+        for (textBlock in text.textBlocks) {
+            for (line in textBlock.lines) {
+                val rect = line.boundingBox
+
+                if (rect != null) {
+                    lineMap[rect] = line
+                }
+            }
+        }
+
+        return lineMap
+    }
+
+
+}
+```
 
 ## Step 3: Identifying the Language
 Create a separate class called Language Identifier that can identify language of given text. Since we assume to be only dealing with Swedish or German text,
