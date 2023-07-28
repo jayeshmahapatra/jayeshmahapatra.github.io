@@ -34,7 +34,7 @@ dependencies {
 }
 ```
 
-Then, let's create a class called OCRHelper, which will manage all OCR functionality. We also create an member variable to store an instance
+Then, let's create a class called `OCRHelper`, which will manage all OCR functionality. We also create an member variable to store an instance
 of TextRecognition Client. This instance will be used to perform text recognition, and we use the default options to create it as we want to recongize only latin characters.
 
 ```kotlin
@@ -57,25 +57,15 @@ class OcrHelper {
 }
 ```
 
-Now let's start adding OCR functionality to the class.
+Now let's start adding OCR functionality to the class. To do this we will create two functions:
+
+- `performOCR`: A public function that takes in a bitmap as input, does OCR, and returns the OCR results as a `Map<Rect, Text.Line>`. This map esseintially is a mapping between where the OCR text was found to the text that was found inside that region. `Text.Line` is a Class used by ML-Kit to store the recongized text along with supporting info like angle of the detected text.
+
+- `extractTextBlocks`: A private function that takes in the result of OCR (A Text Class object), and restructures it into the `Map` structure required by the `performOCR` function.
+
 
 ```kotlin
-package com.example.translateocrapp
-
-// imports here
-
-
-class OcrHelper {
-
-    private val textRecognizer: TextRecognizer
-    private val textRecognizerOptions: TextRecognizerOptionsInterface
-
-    init {
-        textRecognizerOptions = TextRecognizerOptions.Builder().build()
-        textRecognizer = TextRecognition.getClient(textRecognizerOptions)
-    }
-
-
+    
     fun performOcr(bitmap: Bitmap): Map<Rect, Text.Line> {
         val image = InputImage.fromBitmap(bitmap, 0)
         val task: Task<Text> = textRecognizer.process(image)
@@ -99,18 +89,96 @@ class OcrHelper {
         return lineMap
     }
 
-
-}
 ```
 
+### Integrating with PreviewActivity
+Now that our class is done, let's add the functionality to our app, such that OCR is triggered automatically
+once PreviewActivity is created.
+
+
 ## Step 3: Identifying the Language
-Create a separate class called Language Identifier that can identify language of given text. Since we assume to be only dealing with Swedish or German text,
-we determine the lang to be se / de or undetermined.
-We determine one lang for the entire bitmap, to simplify translation process, but in theory we can detect multiple languages in the same bitmap.
+Once we have the results of the OCR, the next step we want to do is identify which language does the identified text
+belong to. Since we plan to support only two languages Swedish and German, our language identification task essentially tells us if the text identified belongs to one of these two classes or something else.
+
+We start by creating a class called `LanguageRecognizer`. We also add a member variable to store an instance of ML-Kit `LanguageIdentification` client, created using default options.
+
+```kotlin
+package com.example.translateocrapp
+
+class LanguageRecognizer {
+
+    private val languageIdentifierClient: LanguageIdentifier
+    private val languageIdentifierOptions: LanguageIdentificationOptions
+
+    init {
+        // Initialize the language identifier client in the class constructor
+        languageIdentifierOptions = LanguageIdentificationOptions.Builder()
+            .setConfidenceThreshold(0.5f)
+            .build()
+        languageIdentifierClient = LanguageIdentification.getClient(languageIdentifierOptions)
+    }
+}
+
+
+```
+Now we add Language Identification functionality by adding a single public function:
+- `recognizeLanguage`: A public function that takes as input the `Map` created from our `performOCR` function during the OCR step, and returns a string indicating the Language detected. 
+
+    The function iterates through all the OCR results and recognizes the language associated with each text line. Then returns the most common language found that is either German or Swedish. If neither of two is found, detected language is undetermined.
+
+```kotlin
+    
+    fun recognizeLanguage(ocrMap: Map<Rect, Text.Line>): String {
+
+        // Iterate through the map of OCR results and recognize the language of each line
+        // Find the most common language that is either German or Swedish
+        // if neither German nor Swedish is found, return "und"
+
+        // Create a map to store the language of each line
+        val languageMap = mutableMapOf<Rect, String>()
+
+        // Iterate through the map of OCR results
+        for ((rect, line) in ocrMap) {
+            // Get the text from the line
+            val text = line.text
+
+            // Create a task to recognize the language of the line
+            val task: Task<String> = languageIdentifierClient.identifyLanguage(text)
+
+            // Wait for the task to complete
+            val result = Tasks.await(task)
+
+            // Store the language of the line in the map
+            languageMap[rect] = result
+        }
+
+        // Count the occurrences of German and Swedish languages
+        val germanCount = languageMap.values.count { it == "de" }
+        val swedishCount = languageMap.values.count { it == "sv" }
+
+        return when {
+            germanCount > 0 && swedishCount > 0 -> {
+                // Both German and Swedish are present, return the most common between them
+                if (germanCount >= swedishCount) "de" else "sv"
+            }
+            germanCount > 0 -> "de" // Only German is present
+            swedishCount > 0 -> "sv" // Only Swedish is present
+            else -> "und" // Neither German nor Swedish is found
+        }
+
+    }
+
+```
+
+### Integrating with PreviewActivity
+Now let's add logic to `PreviewActivity.kt` such we start Language Identification once the OCR is completed.
 
 ## Step 4: Language Translation
 Create a class called Translator, to handle the text translation as well as management of the translation model. This class handles downloading the correct translation model (if required)
 and then using the translation model to translate text to english. Since we support two source langauges (se/de) the class can download two translation models for se-en and de-en translations repsectively.
+
+### Integrating with PreviewActivity
+Now that our class is done, let's add the functionality to our app, such that Translation is automatically triggered after we finish with OCR.
 
 ## Step 5: Overlay results on the original captured image
 Once we have the translation, we need to modify the original bitmap to overlay the translated text over the original image, while obstructing the original non-english text.
