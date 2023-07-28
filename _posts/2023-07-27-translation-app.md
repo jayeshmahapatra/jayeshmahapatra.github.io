@@ -3,9 +3,14 @@ Tutorial to create a point and shoot translation app for android for translating
 Example gif of usage.
 Assumes some basic familiarity with Android and Kotlin coding.
 ## Base App: Camera X Tutorial App
-The first step is to follow the "Getting started with Camera X" tutorial by Google to create a simple camera app that can click pictures and save them.
-Only follow the tutorial till the creation of the image capture, and skip the video and image analysis sections.
-Everything we do in this tutorial will build on that.
+To build a point and shoot translation app, the first step is to build a camera functionality that allows the user to click pictures.
+For android, a simple way to achieve this is by using the CameraX Jetpack library which simiplifies camera functionality development by providing a consistent, easy to use API.
+
+So as a prerequisite for this tutorial, please go through the [Get Started with CameraX](https://developer.android.com/codelabs/camerax-getting-started#0) tutorial,
+that will walk you through the process of creating a simple camera app. Since we only need image capture functionality, you can stop after Step 5 of the tutorial and skip
+the rest that deals with video capture and image analysis.
+
+Once you have completed the Camera X tutorial upto Step 5, you are ready the start our Translation App tutorial.
 
 ## Step 1: Adding and Extra Activity to the Base App
 Does the following:
