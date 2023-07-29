@@ -1,9 +1,9 @@
 ##  Android OCR Translation App using Kotlin and Google ML-Kit
 Language translation has been revolutionary in reducing friction when interacting with people and services from foreign countries, and facilitates much of global trade today. The recent advances in Machine Learning continue to make translation more accurate and efficient.
 
-In my day to day life, I frequenlty use the text translation feature of google lens to translate mail and product information to English.
+In my day to day life, I frequenlty use the text translation feature of google lens to translate documents to English.
 
-Since I wanted to dabble in building Android native apps, I decided this would be an ideal side project with the perfect mixture of Android code and Machine Learning.
+Since I wanted to dabble in building Android native apps, I decided this would be an ideal side project with the perfect mixture of Android Native code and Machine Learning.
 
 ## Choosing the Tools
 
