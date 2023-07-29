@@ -9,7 +9,7 @@ Since I wanted to dabble in building Android native apps, I decided this would b
 
 While Android Native code can be written in both Java and Kotlin, I decided to stick to Kotlin completely to benefit from the modern features it offers like Null Safety and lambda expressions.
 
-For the Machine Learning side, I decided to go with Google ML-Kit as a one stop solution for deploying On-device Machine Learning for common tasks. 
+For the Machine Learning side, I decided to go with [Google ML-Kit](https://developers.google.com/ml-kit) as a one stop solution for deploying On-device Machine Learning for common tasks. 
 
 The benefits of choosing ML-Kit were:
 
