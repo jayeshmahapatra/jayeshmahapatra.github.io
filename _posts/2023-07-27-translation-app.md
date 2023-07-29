@@ -27,7 +27,7 @@ The app works in the following steps:
 
 2. **Optical Character Recognition (OCR):** After the image is captured, the `PreviewActivity` is launched, where the raw image is displayed. The app then utilizes Google ML Kit's OCR capabilities provided by the `OcrHelper` class to extract all the text present in the image.
 
-3. **Language Identification:** Once the text is extracted using OCR, the `LanguageRecognizer` class is employed to identify the language of the extracted text. The app determines if the text is in Swedish, German, or an undetermined language.
+3. **Language Identification:** Once the text is extracted using OCR, the `LanguageRecognizer` class is employed to identify the language of the extracted text. The app determines if the text is in Swedish, German, or an undetermined language. The class also manages translation models, such as downloading and storing them locally as needed.
 
 4. **Translation:** Based on the identified language, the app decides which language translation model to use. The `TextTranslator` class handles the downloading and loading of the appropriate translation model (German if undetermined). The text is then translated into English.
 
@@ -37,9 +37,17 @@ The app works in the following steps:
 
 Point the camera at the text you want to translate and capture an image by clicking the capture button. After the capture, the app will translate the text and display an image with the translated text.
 
+<figure>
+    <img src="/media/2023-07-27-translation-app/translation_app_example_use.gif"
+         alt="A gif of using the translation app to translate an advertisement poster">
+    <figcaption>Translating an advertisement poster using the app</figcaption>
+</figure>
+
 ## Source Code
 
 I have created a github repo called [`TranslateOCRApp`](https://github.com/jayeshmahapatra/TranslateOCRApp) that contains the source code for this app. The repository also contains a [`Releases`](https://github.com/jayeshmahapatra/TranslateOCRApp/releases) section from where you can download an apk of the App and try it out yourself.
+
+Note that app needs wifi internet when it's used for the first time to download the translation models.
 
 
 
