@@ -40,7 +40,7 @@ Point the camera at the text you want to translate and capture an image by click
 <figure>
     <img src="/media/2023-07-27-translation-app/translation_app_example_use.gif"
          alt="A gif of using the translation app to translate an advertisement poster"
-         width = "300"
+         width = "280"
          height = "500">
     <figcaption>Translating an advertisement poster using the app</figcaption>
 </figure>
