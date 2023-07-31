@@ -9,6 +9,8 @@ Since I wanted to dabble in building Android native apps, I decided this would b
 
 While Android Native code can be written in both Java and Kotlin, I decided to stick to Kotlin completely to benefit from the modern features it offers like Null Safety and lambda expressions.
 
+For implementing the Camera and Image Capture functionality, I decided to go with [CameraX](https://developer.android.com/training/camerax) which is a Jetpack library that provides an easy to use Camera API for android devices.
+
 For the Machine Learning side, I decided to go with [Google ML-Kit](https://developers.google.com/ml-kit) as a one stop solution for deploying On-device Machine Learning for common tasks. 
 
 The benefits of choosing ML-Kit were:
@@ -23,7 +25,7 @@ The process flow can luckily be desinged in a simple linear fashion.
 
 The app works in the following steps:
 
-1. **Capture Image:** The user can capture an image of the text using the app's built-in camera functionality in the `MainActivity`. Upon capturing the image, it is saved for further processing.
+1. **Capture Image:** The user can capture an image of the text using the camera functionality implemented in `MainActivity`. Upon capturing the image, it is saved for further processing.
 
 2. **Optical Character Recognition (OCR):** After the image is captured, the `PreviewActivity` is launched, where the raw image is displayed. The app then utilizes Google ML Kit's OCR capabilities provided by the `OcrHelper` class to extract all the text present in the image.
 
