@@ -35,6 +35,12 @@ The app works in the following steps:
 
 5. **Image Transformation:** The original image, along with the overlay of the translated text, is displayed to the user in the `PreviewActivity`. The `BitmapAnnotator` class takes care of overlaying the translated text on top of the original image. This is done by blurring the original text and replacing them with their translations.
 
+**Note**: The app needs wifi internet when it's used for the first time to download the translation models. After the first time, the app can work completely offline.
+
+## Source Code and Apk
+
+I have created a github repo called [`TranslateOCRApp`](https://github.com/jayeshmahapatra/TranslateOCRApp) that contains the source code for this app. This repository also contains a [`Releases`](https://github.com/jayeshmahapatra/TranslateOCRApp/releases) section from where you can download an apk of the App and try it out yourself.
+
 ## Example Usage
 
 Point the camera at the text you want to translate and capture an image by clicking the capture button. After the capture, the app will translate the text and display an image with the translated text.
@@ -47,11 +53,7 @@ Point the camera at the text you want to translate and capture an image by click
     <figcaption>Translating an advertisement poster using the app</figcaption>
 </figure>
 
-## Source Code
 
-I have also created a github repo called [`TranslateOCRApp`](https://github.com/jayeshmahapatra/TranslateOCRApp) that contains the source code for this app. This repository also contains a [`Releases`](https://github.com/jayeshmahapatra/TranslateOCRApp/releases) section from where you can download an apk of the App and try it out yourself.
-
-**Note**: The app needs wifi internet when it's used for the first time to download the translation models.
 
 
 
