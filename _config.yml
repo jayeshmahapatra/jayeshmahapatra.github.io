@@ -26,6 +26,10 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
+markdown: kramdown
+highlighter: rouge
+    input: GFM
+
 titles_from_headings:
   strip_title: true
   collections: true
