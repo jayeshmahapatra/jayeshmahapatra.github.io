@@ -21,14 +21,14 @@ linkedin_username: "jayeshmahapatra"
 theme: "minima"
 
 #rss: rss
-
-kramdown:
-  syntax_highlighter_opts:
-    disable: true
     
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
 
 titles_from_headings:
   strip_title: true
