@@ -1,19 +1,19 @@
 # Chat with my blog: A RAG based chatbot that talks about me and my blog !
-Intro about chat chatbots and why you decided to create one for your blog
+Large Language Models (LLMs) have revolutionized how we interact with information. They are quickly augmenting traditional search based methods for interacting with the Web, providing more natural sounding responses. My blog has been steadilty growing in size, which will make it necessary to have a way to search and extract information from it a necessity.
+
+This gave me the perfect oppurtunity to implement a personal chatbot that can answer questions using my blog, and even about myself ! In this blog I will discuss about the core mechanisms powering my chatbot, as well some brief discussion about the actual implementation.
+
 
 ## Retreival Augmented Generation
-Large Language Models (LLMs) like ChatGPT or Misral are state of the art "next token" generators. Given a string of text, they predict more words to comlete the text.
-This allows us to prompt these models to fullfill a wide range of tasks by using different prompting strategies to achieve classification, sentiment analysis, summarization etc.
-However, unaided, these models also suffer from some drawbacks which limit their adaptibility in the real world:
+Large Language Models (LLMs) excel at generating text based on given input. However, they face limitations in adapting to real-world scenarios because of the following reasons:
 
 1. **Fixed Knowledge**: The knowledge of the model is limited to the data it was trained on. Hence asking questions outside of the training domain or "cut-off" date can lead to inaccurate answers.
-2. No citations: Since these models generate answers based on the entire dataset they were trained on, it's hard to attribute or cite the parts of the dataset that the model found relevant.
-3. Expensive: It's quite expensive to train a base language model.  So updating a model's knowledge via training/retraining for every specific domain use case becomes expensive.
+2. **Lack of Citations**: These models generate answers without referencing specific parts of the dataset they draw from, making it challenging to attribute sources.
+3. **Costly Training**: Training LLMs is a resource-intensive process, making frequent updates for domain-specific use cases economically impractical.
 
-To overcome these limitations Lewis et al[1] introduced Retreival Augmented Generation commonly shortened to RAG.
-A RAG based system allows LLMs to access additional external data alongside the internal data they were trained on. This allows relevant knowledge to be injected during the inference phase, leading to more accurate and grounded answers.
+To address these challenges, Lewis et al introduced Retrieval-Augmented Generation (RAG), which enables LLMs to access external data during inference. This approach injects relevant knowledge into the model, leading to more grounded and accurate responses.
 
-A typical RAG setup is shown below:
+### Simple Question Answering RAG Setup
 
 <p align="center">
    <figure>
@@ -23,38 +23,50 @@ A typical RAG setup is shown below:
    </figure>
 </p>
 
-A simple RAG system typically consists of the following modules:
+A simple Question Answering RAG system has the following modules:
 
-1. Parser + Chunker: This module parses the external text data and splits it into smaller chunks ideal for the embedding.
-2. Embedding Model:  This model is used to generate vector embeddings from chunks of input text.
-3. Vector Database: This is used to store the embeddings generated from the embedding model. These usually come equipped with a vector similarity based querying method.
-4. Generation Model: This is base LLM we used for generating our answers.
+1. **Parser + Chunker**: This module parses and breaks down external text data into smaller, digestible chunks.
+2. **Embedding Model**: It generates vector representations from these text chunks.
+3. **Vector Database**: This stores the generated embeddings, facilitating efficient retrieval based on vector similarity.
+4. **Generation Model**: The base LLM responsible for generating responses.
 
-A typical RAG flow looks like following:
-1. Ingestion:
-    - Ingest all the external data using the Parser and split them into smaller chunks.
-    - Embed all these chunks into vectors using the embedding model and store them in the Vector Databse
-2. Querying:
-    - Take the user query and embed it into a query vector
-    - By using vector similarity search, find the top `k` most similar vector embeddings and retreive their corresponding text.
-    - Create a new prompt using the original user query as well as retreived text chunks and use them to generate an answer.
+Setting up a RAG system involves ingesting external knowledge and preparing it for use:
+
+- Parse external text data and chunk it for embedding.
+- Convert these chunks into vectors and store the text, vector pairs in the Vector Database.
+
+Once setup, users can query the system for answers. When a user query is received, the system follows these steps:
+- Embed the user query into a query vector.
+- Retrieve relevant text chunks from the database based on vectors similar to the query vector.
+- Generate a response using a prompt derived from the user query and retrieved text chunks.
+
+### Q&A with chat history
+While the above setup works well for independent queries, what if we want our chatbot to reference previous conversations alongside external knowledge?
+
+To accommodate this, we can enhance the querying stage to incorporate chat history:
+
+- Use the generation model to generate a standalone query that incorporates both the user query and the chat history.
+- Follow the standard querying flow to retrieve and generate responses.
 
 
-## RAG Frameworks
-Talk briefly about the various frameworks that exist for creating a rag chatbot, and what made me pick langchain.
+## Personal Chatbot Implementation
+Rather than starting from scratch, I built the chatbot on top of the excellent [`chat-langchain`](https://github.com/langchain-ai/chat-langchain) github repo.
 
-## chat-langchain repo
-What is this repo, and why this was a good starting point rather than starting from scratch.
-1-2 line summary about what we use directly vs what we modify.
+This repo contains codebase of the chatbot `LangChain` has built for it's documentation and deployed at [`chat.langchain.com`](https://chat.langchain.com/). They has used LangChain, FastAPI and NextJS to build the chatbot, and have predefined scripts for ingestion and querying logic.
 
-## Backend
-- Langchain chain
-- Langserve + FastAPI
-- Langfuse integration
+My implementation incorporates the following technologies:
 
-## Frontend
- - NextJS + Chakra UI
- - langchainJS
-
-## Deployment
- - Multi stage docker builds
+1. **Backend**:
+    - Utilizing LangChain for RAG logic.
+    - Serving API endpoints using FastAPI and LangServe.
+    - Employing Chroma as a self-hosted Vector Database.
+    - Integrating Together AI for embedding and answer generation.
+    - Enhancing modularity and maintainability through code refactoring.
+    - Implementing Unstructured IO for parsing during ingestion.
+2. **Frontend**:
+    - Developing a user-friendly interface with NextJS and Chakra UI.
+    - Interacting with backend APIs via LangchainJS.
+    - Customizing example prompts and page contents for a personalized touch.
+    - Adding social media links to the footer for enhanced connectivity.
+3. **Deployment**:
+    - Employing Docker and Docker Compose for lightweight and efficient deployment.
