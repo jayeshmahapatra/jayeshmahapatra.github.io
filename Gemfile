@@ -1,4 +1,5 @@
-gem "minima"
-gem "jekyll-sitemap"
-gem "jekyll-feed"
-gem "jekyll-titles-from-headings"
+source "https://rubygems.org"
+
+
+gem "github-pages", "231"
+gem 'webrick'
