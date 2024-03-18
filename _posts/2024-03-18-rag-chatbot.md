@@ -43,7 +43,7 @@ To accommodate this, we can enhance the querying stage to incorporate chat histo
 <p align="center">
    <figure>
    <img src= "/media/2024-03-18-rag-chatbot/RAG_diagram.png" alt = "Diagram of a RAG System with Chat History">
-   <figcaption>Diagram of a RAG System with Chat History. <a href=https://blogs.nvidia.com/wp-content/uploads/2023/11/LangChain-2-LLM-with-a-retriveal-process.jpg>Source</a>
+   <figcaption>Diagram of a RAG System with Chat History. <br> Source: "What Is Retrieval-Augmented Generation, aka RAG?", Nvidia, 2023
 </figcaption>
    </figure>
 </p>
