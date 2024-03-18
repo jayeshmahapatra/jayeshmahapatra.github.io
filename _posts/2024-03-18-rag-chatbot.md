@@ -1,7 +1,7 @@
 # Chat with my blog: A RAG based chatbot that talks about me and my blog !
-Large Language Models (LLMs) have revolutionized how we interact with information. They are quickly augmenting traditional search based methods for interacting with the Web, providing more natural sounding responses. My blog has been steadilty growing in size, which will make it necessary to have a way to search and extract information from it a necessity.
+Large Language Models (LLMs) have revolutionized how we interact with information. They are quickly augmenting traditional search based methods for interacting with the Web, providing more natural sounding responses. My blog has been steadilty growing in size, which makes it a necessity to have a way to search and extract information from it.
 
-This gave me the perfect oppurtunity to implement a personal chatbot that can answer questions using my blog, and even about myself ! In this blog I will discuss about the core mechanisms powering my chatbot, as well some brief discussion about the actual implementation.
+This gave me the perfect opportunity to implement a personal chatbot that can answer questions about my blog and myself ! In this blog I will discuss about the core mechanisms powering my chatbot, as well some brief discussion about the actual implementation.
 
 
 ## Retreival Augmented Generation
@@ -13,7 +13,7 @@ Large Language Models (LLMs) excel at generating text based on given input. Howe
 
 To address these challenges, [Lewis et al](https://arxiv.org/abs/2005.11401)[1] introduced Retrieval-Augmented Generation (RAG), which enables LLMs to access external data during inference. This approach injects relevant knowledge into the model, leading to more grounded and accurate responses.
 
-### Simple Question Answering RAG Setup
+## A Question Answering RAG System with history
 
 A simple Question Answering RAG system has the following modules:
 
