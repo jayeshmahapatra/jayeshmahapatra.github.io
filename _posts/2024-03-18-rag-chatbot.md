@@ -91,7 +91,7 @@ I made the following modifications to the original code:
 ### Improved Chain
 For my usecase, I wanted the system to base it's answer not only on the retreived documents but also any relevant chat history. This enables to answer self referential questions by the user (For e.g "What is my name?") later down the conversation.
 
-To achieve this, I added an additonal "Relevant Chat History" extraction step that we do in parallel to the standalone question generation. Then the final prompt to the LLM incorporates both retreived documents as well as relevant chat history to generate answers.
+To achieve this, I added an additonal "Relevant Chat History" extraction step that we do after the standalone question generation. This extracts any history that will be relevant to answering the standalone question. Then the final prompt to the LLM incorporates both retreived documents as well as relevant chat history to generate answers.
 
 <p align="center">
    <figure>
