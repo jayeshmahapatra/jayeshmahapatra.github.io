@@ -5,7 +5,7 @@ This gave me the perfect opportunity to implement a personal chatbot that can an
 
 
 ## Retreival Augmented Generation
-Large Language Models (LLMs) excel at generating text based on given input. However, they face limitations in adapting to real-world scenarios because of the following reasons:
+Large Language Models (LLMs) excel at generating text based on a given input. However, they face limitations in adapting to real-world scenarios because of the following reasons:
 
 1. **Fixed Knowledge**: The knowledge of the model is limited to the data it was trained on. Hence asking questions outside of the training domain or "cut-off" date can lead to inaccurate answers.
 2. **Lack of Citations**: These models generate answers without referencing specific parts of the dataset they draw from, making it challenging to attribute sources.
@@ -42,7 +42,7 @@ To accommodate this, we can enhance the querying stage to incorporate chat histo
 
 <p align="center">
    <figure>
-   <img src= "../media/2024-03-18-rag-chatbot/RAG_diagram.png" alt = "Diagram of a RAG System with Chat History">
+   <img src= "/media/2024-03-18-rag-chatbot/RAG_diagram.png" alt = "Diagram of a RAG System with Chat History">
    <figcaption>Diagram of a RAG System with Chat History. <a href=https://blogs.nvidia.com/wp-content/uploads/2023/11/LangChain-2-LLM-with-a-retriveal-process.jpg>Source</a>
 </figcaption>
    </figure>
@@ -95,7 +95,7 @@ To achieve this, I added an additonal "Relevant Chat History" extraction step th
 
 <p align="center">
    <figure>
-   <img src= "../media/2024-03-18-rag-chatbot/Custom_RAG_diagram.png" alt = "My modified RAG System with Additonal History Extraction">
+   <img src= "/media/2024-03-18-rag-chatbot/Custom_RAG_diagram.png" alt = "My modified RAG System with Additonal History Extraction">
    <figcaption>My modified RAG System with Additonal History Extraction.
 </figcaption>
    </figure>
