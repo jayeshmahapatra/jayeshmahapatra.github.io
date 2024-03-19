@@ -56,7 +56,7 @@ Rather than starting from scratch, I built the chatbot on top of the excellent [
 The repo contains codebase of the chatbot `LangChain` has built for it's documentation and deployed at [`chat.langchain.com`](https://chat.langchain.com/). They have used LangChain, FastAPI and NextJS to build the chatbot, and have predefined scripts for ingestion and querying logic.
 
 
-The application is built using the following technologies:
+My application is built using the following technologies:
 
 1. **Backend**:
     - [Langchain](https://www.langchain.com/) for Retrieval-Augmented Generation (RAG) logic
