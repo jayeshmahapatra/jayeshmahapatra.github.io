@@ -105,7 +105,7 @@ To achieve this, I added an additonal "Relevant Chat History" extraction step th
 After constructing the chain, I conducted testing. During this process, I observed some discrepancies in the expected behavior of the LLM, particularly in the generation phases of "Standalone Question" and "Relevant Chat History". To ameliorate this, I created new prompts that include step-by-step instructions along with relevant examples. Upon integration of these improved prompts, the system deviations went down significantly.
 
 ## Conclusion
-In this blog post I discussed about **Retrieval Augmented Generation (RAG)** systems, and how can they be constructed. Finally I explained how I created a RAG based QA chatbot for my blog, complete with the code available on the [`rag-chatbot`](https://github.com/jayeshmahapatra/rag-chatbot) github repository.
+In this blog post I discussed about **Retrieval Augmented Generation (RAG)** systems, and how can they be constructed. Finally, I briefly discussed the implementation details of the chatbot I built for my blog, complete with the code available on the [`rag-chatbot`](https://github.com/jayeshmahapatra/rag-chatbot) github repository.
 
 ## References
 
