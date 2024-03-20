@@ -88,10 +88,14 @@ I made the following modifications to the original code:
 3. **Deployment**:
     - Added Dockerfiles with multi stage building for backend and frontend to keep deployment lightweight.
 
+Let's have a look at some of the key concepts of my implementation:
+
 ### Improved Chain
 For my usecase, I wanted the system to base it's answer not only on the retreived documents but also on any relevant chat history. This enables the system to answer self referential questions by the user (For e.g "What is my name?") later down the conversation.
 
 To achieve this, I added an additonal "Relevant Chat History" extraction step that we perform after the standalone question generation. This extracts messages from the conversation history that are relevant to answering the standalone question. Then the final prompt to the LLM incorporates both retreived documents as well as relevant chat history to generate answers.
+
+I also use different models for embedding ([msmarco-bert-base-dot-v5](https://huggingface.co/sentence-transformers/msmarco-bert-base-dot-v5)) vs answer generation ([Mixtral-Instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1)).
 
 <p align="center">
    <figure>
@@ -103,6 +107,40 @@ To achieve this, I added an additonal "Relevant Chat History" extraction step th
 
 ### Improved prompts
 After constructing the chain, I conducted testing. During this process, I observed some discrepancies in the expected behavior of the LLM, particularly in the generation phases of "Standalone Question" and "Relevant Chat History". To ameliorate this, I created new prompts that include step-by-step instructions along with relevant examples. Upon integration of these improved prompts, the system deviations went down significantly.
+
+### LangFuse Integration
+[LangFuse](https://langfuse.com/) is an open source LLM monitoring framework, that allows users to trace the entire prompt chain. This allows me to inspect the following data:
+- What are the inputs and outputs of my system and how much time it took to run.
+- What standalone questions were crafted based on hisory ? 
+- What relevant history was extracted from the conversation ? 
+- What documents were found relevant to a question using vector similarity search ?
+
+Integrating Langfuse was slightly tricky, as although it comes with built in support for Langchain, there is no documentation on integrating it with LangServe. The trick I used was to create a function that modifies Langchain config every request, and adds the LangFuse callback, as show below:
+
+```python
+# Create a Langfuse handler
+langfuse_handler = CallbackHandler(
+    secret_key = os.environ.get("LANGFUSE_SECRET_KEY", "not_provided"),
+    public_key = os.environ.get("LANGFUSE_PUBLIC_KEY", "not_provided"),
+    host = "https://cloud.langfuse.com"
+    )
+
+# Create a function that adds the LangFuse callback to config
+def add_langfuse_callback(config, request):
+    config.update({"callbacks": [langfuse_handler]})
+    return config
+
+# While calling the LangServe add_routes method, pass the add_langfuse_callback function and a per requestion config modifier.
+add_routes(
+    app,
+    answer_chain,
+    path="/chat",
+    input_type=ChatRequest,
+    config_keys=["metadata", "configurable", "tags"],
+    per_req_config_modifier = add_langfuse_callback
+)
+```
+
 
 ## Conclusion
 In this blog post I discussed about **Retrieval Augmented Generation (RAG)** systems, and how can they be constructed. Finally, I briefly discussed the implementation details of the chatbot I built for my blog, complete with the code available on the [`rag-chatbot`](https://github.com/jayeshmahapatra/rag-chatbot) github repository.
