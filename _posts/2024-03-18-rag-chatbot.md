@@ -110,9 +110,9 @@ After constructing the chain, I conducted testing. During this process, I observ
 
 ### LangFuse Integration
 [LangFuse](https://langfuse.com/) is an open source LLM monitoring framework, that allows users to trace the entire prompt chain. This allows me to inspect the following data:
-- What are the inputs and outputs of my system and how much time it took to run.
-- What standalone questions were crafted based on hisory ? 
-- What relevant history was extracted from the conversation ? 
+- What are the inputs and outputs of my system and how much time it took to run ?
+- What standalone questions were crafted based on history ? 
+- What relevant history was extracted from a conversation ? 
 - What documents were found relevant to a question using vector similarity search ?
 
 Integrating Langfuse was slightly tricky, as although it comes with built in support for Langchain, there is no documentation on integrating it with LangServe. The trick I used was to create a function that modifies Langchain config every request, and adds the LangFuse callback, as show below:
