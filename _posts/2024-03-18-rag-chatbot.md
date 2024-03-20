@@ -51,12 +51,12 @@ To accommodate this, we can enhance the querying stage to incorporate chat histo
 
 ## Personal Chatbot Implementation
 My personal implementation of RAG-based Question Answering chatbot is hosted at [`https://chat.jayeshdev.com`](https://chat.jayeshdev.com) with the source code available at my [`rag-chatbot`](https://github.com/jayeshmahapatra/rag-chatbot) github repository.
+
 Rather than starting from scratch, I built the chatbot on top of the excellent [`chat-langchain`](https://github.com/langchain-ai/chat-langchain) github repo.
+The repo contains codebase of the chatbot `LangChain` has built for it's documentation and deployed at [`chat.langchain.com`](https://chat.langchain.com/). They have used LangChain, FastAPI and NextJS to build the chatbot, and have predefined scripts for ingestion and querying logic.
 
-This repo contains codebase of the chatbot `LangChain` has built for it's documentation and deployed at [`chat.langchain.com`](https://chat.langchain.com/). They has used LangChain, FastAPI and NextJS to build the chatbot, and have predefined scripts for ingestion and querying logic.
 
-
-The application is built using the following technologies:
+My application is built using the following technologies:
 
 1. **Backend**:
     - [Langchain](https://www.langchain.com/) for Retrieval-Augmented Generation (RAG) logic
@@ -89,9 +89,9 @@ I made the following modifications to the original code:
     - Added Dockerfiles with multi stage building for backend and frontend to keep deployment lightweight.
 
 ### Improved Chain
-For my usecase, I wanted the system to base it's answer not only on the retreived documents but also any relevant chat history. This enables to answer self referential questions by the user (For e.g "What is my name?") later down the conversation.
+For my usecase, I wanted the system to base it's answer not only on the retreived documents but also on any relevant chat history. This enables the system to answer self referential questions by the user (For e.g "What is my name?") later down the conversation.
 
-To achieve this, I added an additonal "Relevant Chat History" extraction step that we do after the standalone question generation. This extracts any history that will be relevant to answering the standalone question. Then the final prompt to the LLM incorporates both retreived documents as well as relevant chat history to generate answers.
+To achieve this, I added an additonal "Relevant Chat History" extraction step that we perform after the standalone question generation. This extracts messages from the conversation history that are relevant to answering the standalone question. Then the final prompt to the LLM incorporates both retreived documents as well as relevant chat history to generate answers.
 
 <p align="center">
    <figure>
@@ -102,10 +102,10 @@ To achieve this, I added an additonal "Relevant Chat History" extraction step th
 </p>
 
 ### Improved prompts
-After constructing the chain, I conducted testing. During this process, I observed discrepancies in the expected behavior of the LLM, particularly in the generation phases of "Standalone Questions" and "Relevant Chat History". To ameliorate this, I created new prompts with step-by-step instructions along with relevant examples. Upon integration of these new prompts, the system deviations went down significantly.
+After constructing the chain, I conducted testing. During this process, I observed some discrepancies in the expected behavior of the LLM, particularly in the generation phases of "Standalone Question" and "Relevant Chat History". To ameliorate this, I created new prompts that include step-by-step instructions along with relevant examples. Upon integration of these improved prompts, the system deviations went down significantly.
 
 ## Conclusion
-In this blog post I discussed about **Retrieval Augmented Generation (RAG)** systems, and how can they be constructed. Finally I explained how I created a RAG based QA chatbot for my blog, complete with the code available on the [`rag-chatbot`](https://github.com/jayeshmahapatra/rag-chatbot) github repository.
+In this blog post I discussed about **Retrieval Augmented Generation (RAG)** systems, and how can they be constructed. Finally, I briefly discussed the implementation details of the chatbot I built for my blog, complete with the code available on the [`rag-chatbot`](https://github.com/jayeshmahapatra/rag-chatbot) github repository.
 
 ## References
 
