@@ -115,7 +115,7 @@ After constructing the chain, I conducted testing. During this process, I observ
 - What relevant history was extracted from a conversation ? 
 - What documents were found relevant to a question using vector similarity search ?
 
-Integrating Langfuse was slightly tricky, as although it comes with built in support for Langchain, there is no documentation on integrating it with LangServe. The trick I used was to create a function that modifies Langchain config every request, and adds the LangFuse callback, as show below:
+Integrating Langfuse was slightly tricky, as although it comes with built in support for Langchain, there is no documentation on integrating it with LangServe. The trick I used was to create a function that modifies Langchain config every request to add the LangFuse callback, as show below:
 
 ```python
 # Create a Langfuse handler
@@ -130,7 +130,7 @@ def add_langfuse_callback(config, request):
     config.update({"callbacks": [langfuse_handler]})
     return config
 
-# While calling the LangServe add_routes method, pass the add_langfuse_callback function and a per requestion config modifier.
+# While calling the LangServe add_routes method, pass the add_langfuse_callback function as a per requestion config modifier.
 add_routes(
     app,
     answer_chain,
