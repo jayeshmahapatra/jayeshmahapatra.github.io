@@ -1,7 +1,7 @@
 # Chat with my blog: A RAG based chatbot that talks about me and my blog !
 Large Language Models (LLMs) have revolutionized how we interact with information. They are quickly augmenting traditional search based methods for interacting with the Web, providing more natural sounding responses. My blog has been steadilty growing in size, which makes it a necessity to have a way to search and extract information from it.
 
-This gave me the perfect opportunity to implement a personal chatbot that can answer questions about my blog and myself ! In this blog I will discuss about the core mechanisms powering my chatbot hosted at [`https://chat.jayeshdev.com`](https://chat.jayeshdev.com), as well some brief discussion about the actual implementation.
+This gave me the perfect opportunity to implement a personal chatbot that can answer questions about my blog and myself ! In this blog I will discuss about the core mechanisms powering my chatbot ~~hosted at [`https://chat.jayeshdev.com`](https://chat.jayeshdev.com)~~ (Not actively hosted anymore), as well some brief discussion about the actual implementation.
 
 
 ## Retreival Augmented Generation
@@ -50,7 +50,7 @@ To accommodate this, we can enhance the querying stage to incorporate chat histo
 
 
 ## Personal Chatbot Implementation
-My personal implementation of RAG-based Question Answering chatbot is hosted at [`https://chat.jayeshdev.com`](https://chat.jayeshdev.com) with the source code available at my [`rag-chatbot`](https://github.com/jayeshmahapatra/rag-chatbot) github repository.
+My personal implementation of RAG-based Question Answering chatbot is ~~hosted at [`https://chat.jayeshdev.com`](https://chat.jayeshdev.com)~~ (Not actively hosted anymore) with the source code available at my [`rag-chatbot`](https://github.com/jayeshmahapatra/rag-chatbot) github repository.
 
 Rather than starting from scratch, I built the chatbot on top of the excellent [`chat-langchain`](https://github.com/langchain-ai/chat-langchain) github repo.
 The repo contains codebase of the chatbot `LangChain` has built for it's documentation and deployed at [`chat.langchain.com`](https://chat.langchain.com/). They have used LangChain, FastAPI and NextJS to build the chatbot, and have predefined scripts for ingestion and querying logic.
