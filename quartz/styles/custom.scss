@@ -1,3 +1,69 @@
 @use "./base.scss";
 
 // put your custom CSS here!
+
+// Make page use more screen width on desktop
+@media (min-width: 1200px) {
+  .page {
+    max-width: 90vw !important; // Use 90% of viewport width
+    margin: 0 auto !important;
+  }
+}
+
+// Improve explorer blog title readability
+.explorer-content ul li {
+  & > a {
+    display: block !important;
+    padding: 0.3rem 0 !important;
+    margin-bottom: 0.2rem !important;
+    border-radius: 4px !important;
+    transition: background-color 0.2s ease !important;
+    
+    &:hover {
+      background-color: var(--lightgray) !important;
+      padding-left: 0.3rem !important;
+      padding-right: 0.3rem !important;
+    }
+  }
+  
+  // Add subtle separator between items
+  &:not(:last-child) > a::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--lightgray);
+    margin-top: 0.3rem;
+    opacity: 0.3;
+  }
+}
+
+// Improve Table of Contents readability
+ul.toc-content.overflow li {
+  & > a {
+    display: block !important;
+    padding: 0.25rem 0 !important;
+    margin-bottom: 0.15rem !important;
+    border-radius: 4px !important;
+    transition: all 0.2s ease !important;
+    
+    &:hover {
+      background-color: var(--lightgray) !important;
+      padding-left: 0.3rem !important;
+      padding-right: 0.3rem !important;
+      opacity: 1 !important;
+    }
+    
+  }
+  
+  // Add subtle separator between TOC items
+  &:not(:last-child) > a::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--lightgray);
+    margin-top: 0.25rem;
+    opacity: 0.2;
+  }
+}
