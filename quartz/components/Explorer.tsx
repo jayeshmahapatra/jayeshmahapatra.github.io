@@ -22,6 +22,7 @@ export interface Options {
   order: OrderEntries[]
 }
 
+
 const defaultOptions: Options = {
   folderDefaultState: "collapsed",
   folderClickBehavior: "link",
@@ -30,10 +31,29 @@ const defaultOptions: Options = {
     return node
   },
   sortFn: (a, b) => {
-    // Sort order: folders first, then files. Sort folders and files alphabeticall
-    if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
-      // numeric: true: Whether numeric collation should be used, such that "1" < "2" < "10"
-      // sensitivity: "base": Only strings that differ in base letters compare as unequal. Examples: a ≠ b, a = á, a = A
+    // Sort order: folders first, then files
+    if (!a.isFolder && !b.isFolder) {
+
+      // Both are files - check if they're in the blog folder and sort by filename
+      const aInBlog = a.slug.includes("blog/")
+      const bInBlog = b.slug.includes("blog/")
+      
+      if (aInBlog && bInBlog) {
+        // Both are blog posts, sort by filename in descending order (newest first)
+        // Since filenames are in YYYY-MM-DD-title format, reverse alphabetical gives newest first
+        return b.slug.localeCompare(a.slug, undefined, {
+          numeric: true,
+          sensitivity: "base",
+        })
+      }
+      
+      // Default to alphabetical sorting for non-blog files
+      return a.displayName.localeCompare(b.displayName, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      })
+    } else if (a.isFolder && b.isFolder) {
+      // Both are folders - sort alphabetically
       return a.displayName.localeCompare(b.displayName, undefined, {
         numeric: true,
         sensitivity: "base",
