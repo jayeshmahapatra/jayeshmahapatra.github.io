@@ -58,4 +58,4 @@ tags:
 - Use relative links for internal content
 - Images should be referenced relative to the content directory
 - Draft posts can be marked with `draft: true` in frontmatter
-- When making edit suggestions, explain in detail the code you are changing.
+- Before making edit suggestions, explain in detail the changes.
