@@ -87,7 +87,11 @@ export default (() => {
         <meta name="generator" content="Quartz" />
 
         {/* Cloudflare Web Analytics */}
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "23a6206d88644c52b8dd86e786a480af"}'></script>
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "23a6206d88644c52b8dd86e786a480af"}'
+        ></script>
 
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js

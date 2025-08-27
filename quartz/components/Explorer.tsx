@@ -22,7 +22,6 @@ export interface Options {
   order: OrderEntries[]
 }
 
-
 const defaultOptions: Options = {
   folderDefaultState: "collapsed",
   folderClickBehavior: "link",
@@ -33,11 +32,10 @@ const defaultOptions: Options = {
   sortFn: (a, b) => {
     // Sort order: folders first, then files
     if (!a.isFolder && !b.isFolder) {
-
       // Both are files - check if they're in the blog folder and sort by filename
       const aInBlog = a.slug.includes("blog/")
       const bInBlog = b.slug.includes("blog/")
-      
+
       if (aInBlog && bInBlog) {
         // Both are blog posts, sort by filename in descending order (newest first)
         // Since filenames are in YYYY-MM-DD-title format, reverse alphabetical gives newest first
@@ -46,7 +44,7 @@ const defaultOptions: Options = {
           sensitivity: "base",
         })
       }
-      
+
       // Default to alphabetical sorting for non-blog files
       return a.displayName.localeCompare(b.displayName, undefined, {
         numeric: true,
