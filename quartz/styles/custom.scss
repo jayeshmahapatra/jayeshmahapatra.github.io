@@ -2,6 +2,36 @@
 
 // put your custom CSS here!
 
+// Mobile typography improvements for better readability
+@use "./variables.scss" as *;
+
+@media all and ($mobile) {
+  // Increase base font size for better readability on mobile
+  body {
+    font-size: 18px !important;
+  }
+
+  // Adjust headings proportionally for mobile
+  h1 {
+    font-size: 1.85rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.2rem !important;
+  }
+
+  // Ensure line height remains comfortable with larger text
+  tbody,
+  li,
+  p {
+    line-height: 1.7rem !important;
+  }
+}
+
 // Make page use more screen width on desktop
 @media (min-width: 1200px) {
   .page {
@@ -18,14 +48,14 @@
     margin-bottom: 0.2rem !important;
     border-radius: 4px !important;
     transition: background-color 0.2s ease !important;
-    
+
     &:hover {
       background-color: var(--lightgray) !important;
       padding-left: 0.3rem !important;
       padding-right: 0.3rem !important;
     }
   }
-  
+
   // Add subtle separator between items
   &:not(:last-child) > a::after {
     content: "";
@@ -46,16 +76,15 @@ ul.toc-content.overflow li {
     margin-bottom: 0.15rem !important;
     border-radius: 4px !important;
     transition: all 0.2s ease !important;
-    
+
     &:hover {
       background-color: var(--lightgray) !important;
       padding-left: 0.3rem !important;
       padding-right: 0.3rem !important;
       opacity: 1 !important;
     }
-    
   }
-  
+
   // Add subtle separator between TOC items
   &:not(:last-child) > a::after {
     content: "";

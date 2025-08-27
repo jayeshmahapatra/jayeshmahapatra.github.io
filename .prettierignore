@@ -1,3 +1,15 @@
 public
 node_modules
 .quartz-cache
+
+# Ignore everything by default
+*
+
+# Allow TypeScript and JavaScript files
+!*.ts
+!*.tsx
+!*.js
+!*.jsx
+
+# Allow directories to be traversed
+!*/

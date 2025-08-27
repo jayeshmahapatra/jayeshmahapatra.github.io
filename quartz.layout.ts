@@ -18,9 +18,9 @@ export const sharedPageComponents: SharedLayout = {
   ],
   footer: Component.Footer({
     links: {
-      "Email": "mailto:jayeshmahapatra@gmail.com",
-      "Github": "https://github.com/jayeshmahapatra",
-      "LinkedIn": "https://www.linkedin.com/in/jayeshmahapatra",
+      Email: "mailto:jayeshmahapatra@gmail.com",
+      Github: "https://github.com/jayeshmahapatra",
+      LinkedIn: "https://www.linkedin.com/in/jayeshmahapatra",
       "RSS Feed": "/index.xml",
     },
   }),
