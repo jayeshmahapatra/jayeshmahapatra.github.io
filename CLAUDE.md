@@ -47,6 +47,10 @@ tags:
 ---
 ```
 
+## Build Commands
+- **Build the site**: `npx quartz build`
+- **Build and serve locally**: `npx quartz build --serve`
+
 ## Workflow Notes
 - Content is written in Obsidian-compatible markdown
 - Images should be placed in `content/media/[post-name]/`
