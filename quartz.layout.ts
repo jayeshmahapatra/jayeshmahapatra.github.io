@@ -21,6 +21,7 @@ export const sharedPageComponents: SharedLayout = {
       "Email": "mailto:jayeshmahapatra@gmail.com",
       "Github": "https://github.com/jayeshmahapatra",
       "LinkedIn": "https://www.linkedin.com/in/jayeshmahapatra",
+      "RSS Feed": "/index.xml",
     },
   }),
 }
